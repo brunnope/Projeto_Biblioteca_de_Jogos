@@ -1,4 +1,4 @@
-from jogodavelha import iniciarjogodavelha
+from jogodavelha import IniciaJogoDaVelha
 from mines import iniciarmines
 import os
 from time import sleep
@@ -41,8 +41,7 @@ while menu is True:
     elif escolha == 2:
         print("- Iniciando jogo da velha... \n")
         sleep(1)
-        limpar_console()
-        iniciarjogodavelha()
+        IniciaJogoDaVelha()
 
     elif escolha == 3:
         print("Saindo...\n")
