@@ -1,7 +1,154 @@
 marcador = ['X', 'O']
+from random import randint
+from time import sleep
 
 def iniciarjogodavelhacomputador():
-    print("oi")
+    empate = 0
+    win_x = 0
+    win_o = 0
+    
+    print("-"*26)
+    print(f"{'CONTRA A MAQUINA':^26}")
+    print("-"*26)
+
+    while True:
+        turn = 0
+        board = criarvelha()
+        ganhador = vencedor(board, turn)
+        jogador = 0
+        while not ganhador:
+            display(board, turn)
+            print('Turno de', marcador[jogador])
+            if jogador == 0:
+                linha = validarinput('Digite a Linha: ')
+                coluna = validarinput('Digite a Coluna: ')
+            else:
+                print("\nMáquina escolhendo...")
+                sleep(1)
+                linha,coluna = jogadaMaquina(board,turn)
+
+            if validarmovimento(board, linha, coluna):
+                movimento(board, linha, coluna, jogador)
+                jogador = (jogador+1) % 2
+                turn += 1
+            
+            else:
+                print('Posição já ocupada por', board[linha][coluna])
+            ganhador = vencedor(board, turn)
+        print('*' * 20)
+        display(board, turn)
+        if ganhador == 'velha':
+            print(f"Deu {ganhador}!")
+        else:
+            print(f'O Ganhador foi: {ganhador}!\n')
+        
+        empate, win_x, win_o = score(ganhador,empate,win_x,win_o)
+
+        print(f"Vitórias jogador X: {win_x}")
+        print(f"Vitórias jogador O: {win_o}")
+        print(f"Empates: {empate} \n")
+
+        resp = input("Jogar mais uma vez [S/N]: ").lower()
+        while resp not in "sn" or resp == '':
+            resp = input("Jogar mais uma vez [S/N]: ").lower()
+        
+        print()
+
+        if resp == 'n':
+            print("OBRIGADO POR JOGAR!\n")
+            input('Aperte "ENTER" para voltar')
+            break
+
+
+def jogadaMaquina(board,turno):
+    linha = 0
+    coluna = 0
+    errado = False
+    if turno > 2:
+        if board[0][0] == "X":
+            if board[0][1] == "X" and board[0][2] == ' ':
+                coluna = 2
+            elif board[1][0] == "X" and board[2][0] == ' ':
+                linha = 2
+            elif board[1][1] == "X" and board[2][2] == ' ':
+                linha = 2
+                coluna = 2
+            else:
+                errado = True
+
+               
+        elif board[1][0] == "X":
+            if board[1][1] == "X" and board[1][2] == ' ':
+                linha = 1
+                coluna = 2
+            else:
+                errado = True
+
+        elif board[2][0] == "X":
+            if board[2][1] == "X" and board[2][2] == ' ':
+                linha = 2
+                coluna = 2
+            elif board[1][1] == "X" and board[0][2] == ' ':
+                linha = 0
+                coluna = 2
+            else:
+                errado = True
+
+        elif board[0][2] == "X":
+            if board[0][1] == "X" and board[0][0] == ' ':
+                coluna = 0
+            elif board[1][2] == "X" and board[2][2] == ' ':
+                linha = 2
+                coluna = 2
+            elif board[1][1] == "X" and board[2][0] == ' ':
+                linha = 2
+            else:
+                errado = True
+
+        elif board[1][2] == "X":
+            if board[1][1] == "X" and board[1][0] == ' ':
+                linha = 1
+            else:
+                errado = True
+
+        elif board[2][2] == "X":
+            if board[2][1] == "X" and board[2][0] == ' ':
+                linha = 2
+
+            elif board[1][1] == "X" and board[0][0] == ' ':
+                linha = 0
+                coluna = 0
+            
+            elif board[1][2] == "X" and board[0][2] == ' ':
+                coluna = 2
+            
+            else:
+                errado = True
+
+        elif board[0][1] == "X":
+            if board[1][1] == "X" and board[2][1] == ' ':
+                linha = 2
+                coluna = 1
+            else:
+                errado = True
+        else:
+            linha = randint(0,2)
+            coluna = randint(0,2)
+            while (board[linha][coluna] != ' '):
+                linha = randint(0,2)
+                coluna = randint(0,2)
+            errado = True
+
+    if (turno <= 2 or errado == True):
+        linha = randint(0,2)
+        coluna = randint(0,2)
+        while (board[linha][coluna] != ' '):
+            linha = randint(0,2)
+            coluna = randint(0,2)
+
+    return linha,coluna
+
+
 
 def iniciarjogodavelha2():
     empate = 0
