@@ -1,15 +1,17 @@
-marcador = ['X', 'O']
+import random
 from random import randint
 from time import sleep
+marcador = ['X', 'O']
+
 
 def iniciarjogodavelhacomputador():
     empate = 0
     win_x = 0
     win_o = 0
-    
-    print("-"*26)
+
+    print("-" * 26)
     print(f"{'CONTRA A MAQUINA':^26}")
-    print("-"*26)
+    print("-" * 26)
 
     while True:
         turn = 0
@@ -22,16 +24,20 @@ def iniciarjogodavelhacomputador():
             if jogador == 0:
                 linha = validarinput('Digite a Linha: ')
                 coluna = validarinput('Digite a Coluna: ')
+                print("Sua Jogada: ", linha + 1, coluna + 1)
+                sleep(1)
             else:
                 print("\nMáquina escolhendo...")
                 sleep(1)
-                linha,coluna = jogadaMaquina(board,turn,linha,coluna)
+                linha, coluna = jogadaMaquina(board, turn, linha, coluna)
+                print("Jogada da Máquina: ", linha+1, coluna+1)
+                sleep(1)
 
             if validarmovimento(board, linha, coluna):
                 movimento(board, linha, coluna, jogador)
-                jogador = (jogador+1) % 2
+                jogador = (jogador + 1) % 2
                 turn += 1
-            
+
             else:
                 print('Posição já ocupada por', board[linha][coluna])
             ganhador = vencedor(board, turn)
@@ -41,17 +47,17 @@ def iniciarjogodavelhacomputador():
             print(f"Deu {ganhador}!")
         else:
             print(f'O Ganhador foi: {ganhador}!\n')
-        
-        empate, win_x, win_o = score(ganhador,empate,win_x,win_o)
 
-        print(f"Vitórias jogador X: {win_x}")
+        empate, win_x, win_o = score(ganhador, empate, win_x, win_o)
+
+        print(f"\nVitórias jogador X: {win_x}")
         print(f"Vitórias jogador O: {win_o}")
         print(f"Empates: {empate} \n")
 
         resp = input("Jogar mais uma vez [S/N]: ").lower()
         while resp not in "sn" or resp == '':
             resp = input("Jogar mais uma vez [S/N]: ").lower()
-        
+
         print()
 
         if resp == 'n':
@@ -60,8 +66,9 @@ def iniciarjogodavelhacomputador():
             break
 
 
-def jogadaMaquina(board,turno,linha,coluna):
+def jogadaMaquina(board, turno, linha, coluna):
     errado_testes = False
+
     if turno > 2:
         if linha == 0 and coluna == 0:
             if board[0][1] == "X" and board[0][2] == ' ':
@@ -73,8 +80,8 @@ def jogadaMaquina(board,turno,linha,coluna):
             elif board[1][1] == "X" and board[2][2] == ' ':
                 linha = 2
                 coluna = 2
-            
-            #possiblidade de não ser sequencia
+
+            # possiblidade de não ser sequencia
             elif board[2][0] == "X" and board[1][0] == ' ':
                 linha = 1
                 coluna = 0
@@ -86,7 +93,7 @@ def jogadaMaquina(board,turno,linha,coluna):
                 coluna = 1
             else:
                 errado_testes = True
-               
+
         elif linha == 0 and coluna == 1:
             if board[0][0] == "X" and board[0][2] == ' ':
                 linha = 0
@@ -98,14 +105,14 @@ def jogadaMaquina(board,turno,linha,coluna):
                 linha = 2
                 coluna = 1
 
-            #possiblidade de não ser sequencia
+            # possiblidade de não ser sequencia
             elif board[2][1] == "X" and board[1][1] == ' ':
                 linha = 1
                 coluna = 1
             else:
                 errado_testes = True
 
-        elif  linha == 0 and coluna == 2:
+        elif linha == 0 and coluna == 2:
             if board[0][1] == "X" and board[0][0] == ' ':
                 linha = 0
                 coluna = 0
@@ -115,8 +122,8 @@ def jogadaMaquina(board,turno,linha,coluna):
             elif board[1][1] == "X" and board[2][0] == ' ':
                 linha = 2
                 coluna = 0
-            
-            #possiblidade de não ser sequencia
+
+            # possiblidade de não ser sequencia
             elif board[0][0] == "X" and board[0][1] == ' ':
                 linha = 0
                 coluna = 1
@@ -128,7 +135,7 @@ def jogadaMaquina(board,turno,linha,coluna):
                 coluna = 1
             else:
                 errado_testes = True
-            
+
         elif linha == 1 and coluna == 0:
             if board[0][0] == "X" and board[2][0] == ' ':
                 linha = 2
@@ -140,12 +147,12 @@ def jogadaMaquina(board,turno,linha,coluna):
                 linha = 1
                 coluna = 2
 
-            #possiblidade de não ser sequencia
+            # possiblidade de não ser sequencia
             elif board[1][2] == "X" and board[1][1] == ' ':
                 linha = 1
                 coluna = 1
             else:
-                errado_testes = True  
+                errado_testes = True
 
         elif linha == 1 and coluna == 1:
             if board[0][0] == "X" and board[2][2] == ' ':
@@ -186,8 +193,8 @@ def jogadaMaquina(board,turno,linha,coluna):
             elif board[1][1] == "X" and board[1][0] == ' ':
                 linha = 1
                 coluna = 0
-            
-            #possiblidade de não ser sequencia
+
+            # possiblidade de não ser sequencia
             elif board[1][0] == "X" and board[1][1] == ' ':
                 linha = 1
                 coluna = 1
@@ -204,8 +211,8 @@ def jogadaMaquina(board,turno,linha,coluna):
             elif board[1][1] == "X" and board[0][2] == ' ':
                 linha = 0
                 coluna = 2
-            
-            #possiblidade de não ser sequencia
+
+            # possiblidade de não ser sequencia
             elif board[0][0] == "X" and board[1][0] == ' ':
                 linha = 1
                 coluna = 0
@@ -217,7 +224,7 @@ def jogadaMaquina(board,turno,linha,coluna):
                 coluna = 1
             else:
                 errado_testes = True
-        
+
         elif linha == 2 and coluna == 1:
             if board[2][0] == "X" and board[2][2] == ' ':
                 linha = 2
@@ -229,13 +236,13 @@ def jogadaMaquina(board,turno,linha,coluna):
                 linha = 0
                 coluna = 1
 
-            #possiblidade de não ser sequencia
+            # possiblidade de não ser sequencia
             elif board[0][1] == "X" and board[1][1] == ' ':
                 linha = 1
                 coluna = 1
             else:
                 errado_testes = True
-        
+
         elif linha == 2 and coluna == 2:
             if board[2][1] == "X" and board[2][0] == ' ':
                 linha = 2
@@ -246,8 +253,8 @@ def jogadaMaquina(board,turno,linha,coluna):
             elif board[1][1] == "X" and board[0][0] == ' ':
                 linha = 0
                 coluna = 0
-            
-            #possiblidade de não ser sequencia
+
+            # possiblidade de não ser sequencia
             elif board[2][0] == "X" and board[2][1] == ' ':
                 linha = 2
                 coluna = 1
@@ -261,13 +268,17 @@ def jogadaMaquina(board,turno,linha,coluna):
                 errado_testes = True
 
     if turno <= 2 or errado_testes:
-        linha = randint(0,2)
-        coluna = randint(0,2)
-        while (board[linha][coluna] != ' '):
-            linha = randint(0,2)
-            coluna = randint(0,2)
+        if linha == 1 and coluna == 1:
+            linha = random.choice([0, 2])
+            coluna = random.choice([0, 2])
+        else:
+            linha = randint(0, 2)
+            coluna = randint(0, 2)
+        while board[linha][coluna] != ' ':
+            linha = randint(0, 2)
+            coluna = randint(0, 2)
 
-    return linha,coluna
+    return linha, coluna
 
 
 def iniciarjogodavelha2():
@@ -309,7 +320,7 @@ def iniciarjogodavelha2():
         else:
             print(f'O Ganhador foi: {ganhador}!\n')
         
-        empate, win_x, win_o = score(ganhador,empate,win_x,win_o)
+        empate, win_x, win_o = score(ganhador, empate, win_x, win_o)
 
         print(f"Vitórias jogador X: {win_x}")
         print(f"Vitórias jogador O: {win_o}")
@@ -325,6 +336,7 @@ def iniciarjogodavelha2():
             print("OBRIGADO POR JOGAR!\n")
             input('Aperte "ENTER" para voltar')
             break
+
 
 def criarvelha():
     board = [
@@ -395,7 +407,8 @@ def vencedor(board, turn):
 
         return "velha"
 
-def score(ganhador,empate,win_x,win_o):
+
+def score(ganhador, empate, win_x, win_o):
 
     if ganhador == "velha":
         empate += 1
@@ -404,4 +417,4 @@ def score(ganhador,empate,win_x,win_o):
     elif ganhador == "O":
         win_o += 1
     
-    return empate,win_x,win_o
+    return empate, win_x, win_o

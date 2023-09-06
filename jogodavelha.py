@@ -47,4 +47,4 @@ def IniciaJogoDaVelha():
             sleep(1)
             break
 
-print("VOLTE SEMPRE :)")
+    print("VOLTE SEMPRE :)")
