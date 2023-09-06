@@ -1,4 +1,4 @@
-import funcsVelha
+import funcoesVelha
 import os
 from time import sleep
 
@@ -33,14 +33,14 @@ def IniciaJogoDaVelha():
             print("- Iniciando contra o computador... \n")
             sleep(1)
             limpar_console()
-            funcsVelha.iniciarjogodavelhacomputador()
+            funcoesVelha.iniciarjogodavelhacomputador()
             
 
         elif escolha == 2:
             print("- Iniciando de 2 jogadores... \n")
             sleep(1)
             limpar_console()
-            funcsVelha.iniciarjogodavelha2()
+            funcoesVelha.iniciarjogodavelha2()
 
         elif escolha == 3:
             print("Saindo...\n")
