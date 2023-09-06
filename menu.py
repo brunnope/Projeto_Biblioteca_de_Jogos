@@ -1,4 +1,4 @@
-from jogodavelha import IniciaJogoDaVelha
+from jogoDaVelha import IniciaJogoDaVelha
 from mines import iniciarmines
 import os
 from time import sleep
