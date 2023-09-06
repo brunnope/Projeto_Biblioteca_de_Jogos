@@ -25,9 +25,7 @@ def iniciarjogodavelhacomputador():
             else:
                 print("\nMáquina escolhendo...")
                 sleep(1)
-                print(linha,coluna)
                 linha,coluna = jogadaMaquina(board,turn,linha,coluna)
-                print(linha,coluna)
 
             if validarmovimento(board, linha, coluna):
                 movimento(board, linha, coluna, jogador)
@@ -153,32 +151,30 @@ def jogadaMaquina(board,turno,linha,coluna):
             if board[0][0] == "X" and board[2][2] == ' ':
                 linha = 2
                 coluna = 2
-            elif board[2][2] == "X" and board[0][0] == ' ':
+            if board[2][2] == "X" and board[0][0] == ' ':
                 linha = 0
                 coluna = 0
 
-            elif board[2][0] == "X" and board[0][2] == ' ':
+            if board[2][0] == "X" and board[0][2] == ' ':
                 linha = 0
                 coluna = 2
-            elif board[0][2] == "X" and board[2][0] == ' ':
+            if board[0][2] == "X" and board[2][0] == ' ':
                 linha = 2
                 coluna = 0
 
-            elif board[1][0] == "X" and board[1][2] == ' ':
+            if board[1][0] == "X" and board[1][2] == ' ':
                 linha = 1
                 coluna = 2
-            elif board[1][2] == "X" and board[1][0] == ' ':
+            if board[1][2] == "X" and board[1][0] == ' ':
                 linha = 1
                 coluna = 0
 
-            elif board[0][1] == "X" and board[2][1] == ' ':
+            if board[0][1] == "X" and board[2][1] == ' ':
                 linha = 2
                 coluna = 1
-            elif board[2][1] == "X" and board[0][1] == ' ':
+            if board[2][1] == "X" and board[0][1] == ' ':
                 linha = 0
                 coluna = 1
-            else:
-                errado_testes = True
 
         elif linha == 1 and coluna == 2:
             if board[0][2] == "X" and board[2][2] == ' ':
