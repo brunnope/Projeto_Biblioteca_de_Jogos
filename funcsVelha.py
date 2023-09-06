@@ -25,7 +25,9 @@ def iniciarjogodavelhacomputador():
             else:
                 print("\nMáquina escolhendo...")
                 sleep(1)
-                linha,coluna = jogadaMaquina(board,turn)
+                print(linha,coluna)
+                linha,coluna = jogadaMaquina(board,turn,linha,coluna)
+                print(linha,coluna)
 
             if validarmovimento(board, linha, coluna):
                 movimento(board, linha, coluna, jogador)
@@ -60,86 +62,209 @@ def iniciarjogodavelhacomputador():
             break
 
 
-def jogadaMaquina(board,turno):
-    linha = 0
-    coluna = 0
-    errado = False
+def jogadaMaquina(board,turno,linha,coluna):
+    errado_testes = False
     if turno > 2:
-        if board[0][0] == "X":
+        if linha == 0 and coluna == 0:
             if board[0][1] == "X" and board[0][2] == ' ':
+                linha = 0
                 coluna = 2
             elif board[1][0] == "X" and board[2][0] == ' ':
                 linha = 2
+                coluna = 0
             elif board[1][1] == "X" and board[2][2] == ' ':
                 linha = 2
                 coluna = 2
-            else:
-                errado = True
-
-               
-        elif board[1][0] == "X":
-            if board[1][1] == "X" and board[1][2] == ' ':
+            
+            #possiblidade de não ser sequencia
+            elif board[2][0] == "X" and board[1][0] == ' ':
                 linha = 1
-                coluna = 2
+                coluna = 0
+            elif board[0][2] == "X" and board[0][1] == ' ':
+                linha = 0
+                coluna = 1
+            elif board[2][2] == "X" and board[1][1] == ' ':
+                linha = 1
+                coluna = 1
             else:
-                errado = True
-
-        elif board[2][0] == "X":
-            if board[2][1] == "X" and board[2][2] == ' ':
-                linha = 2
-                coluna = 2
-            elif board[1][1] == "X" and board[0][2] == ' ':
+                errado_testes = True
+               
+        elif linha == 0 and coluna == 1:
+            if board[0][0] == "X" and board[0][2] == ' ':
                 linha = 0
                 coluna = 2
-            else:
-                errado = True
+            elif board[0][2] == "X" and board[0][1] == ' ':
+                linha = 0
+                coluna = 1
+            elif board[1][1] == "X" and board[2][2] == ' ':
+                linha = 2
+                coluna = 1
 
-        elif board[0][2] == "X":
+            #possiblidade de não ser sequencia
+            elif board[2][1] == "X" and board[1][1] == ' ':
+                linha = 1
+                coluna = 1
+            else:
+                errado_testes = True
+
+        elif  linha == 0 and coluna == 2:
             if board[0][1] == "X" and board[0][0] == ' ':
+                linha = 0
                 coluna = 0
             elif board[1][2] == "X" and board[2][2] == ' ':
                 linha = 2
                 coluna = 2
             elif board[1][1] == "X" and board[2][0] == ' ':
                 linha = 2
-            else:
-                errado = True
-
-        elif board[1][2] == "X":
-            if board[1][1] == "X" and board[1][0] == ' ':
+                coluna = 0
+            
+            #possiblidade de não ser sequencia
+            elif board[0][0] == "X" and board[0][1] == ' ':
+                linha = 0
+                coluna = 1
+            elif board[2][2] == "X" and board[1][2] == ' ':
                 linha = 1
+                coluna = 2
+            elif board[2][0] == "X" and board[1][1] == ' ':
+                linha = 1
+                coluna = 1
             else:
-                errado = True
+                errado_testes = True
+            
+        elif linha == 1 and coluna == 0:
+            if board[0][0] == "X" and board[2][0] == ' ':
+                linha = 2
+                coluna = 0
+            elif board[2][0] == "X" and board[0][0] == ' ':
+                linha = 0
+                coluna = 0
+            elif board[1][1] == "X" and board[1][2] == ' ':
+                linha = 1
+                coluna = 2
 
-        elif board[2][2] == "X":
+            #possiblidade de não ser sequencia
+            elif board[1][2] == "X" and board[1][1] == ' ':
+                linha = 1
+                coluna = 1
+            else:
+                errado_testes = True  
+
+        elif linha == 1 and coluna == 1:
+            if board[0][0] == "X" and board[2][2] == ' ':
+                linha = 2
+                coluna = 2
+            elif board[2][2] == "X" and board[0][0] == ' ':
+                linha = 0
+                coluna = 0
+
+            elif board[2][0] == "X" and board[0][2] == ' ':
+                linha = 0
+                coluna = 2
+            elif board[0][2] == "X" and board[2][0] == ' ':
+                linha = 2
+                coluna = 0
+
+            elif board[1][0] == "X" and board[1][2] == ' ':
+                linha = 1
+                coluna = 2
+            elif board[1][2] == "X" and board[1][0] == ' ':
+                linha = 1
+                coluna = 0
+
+            elif board[0][1] == "X" and board[2][1] == ' ':
+                linha = 2
+                coluna = 1
+            elif board[2][1] == "X" and board[0][1] == ' ':
+                linha = 0
+                coluna = 1
+            else:
+                errado_testes = True
+
+        elif linha == 1 and coluna == 2:
+            if board[0][2] == "X" and board[2][2] == ' ':
+                linha = 2
+                coluna = 2
+            elif board[2][2] == "X" and board[0][2] == ' ':
+                linha = 0
+                coluna = 2
+            elif board[1][1] == "X" and board[1][0] == ' ':
+                linha = 1
+                coluna = 0
+            
+            #possiblidade de não ser sequencia
+            elif board[1][0] == "X" and board[1][1] == ' ':
+                linha = 1
+                coluna = 1
+            else:
+                errado_testes = True
+
+        elif linha == 2 and coluna == 0:
+            if board[1][0] == "X" and board[0][0] == ' ':
+                linha = 0
+                coluna = 0
+            elif board[2][1] == "X" and board[2][2] == ' ':
+                linha = 2
+                coluna = 2
+            elif board[1][1] == "X" and board[0][2] == ' ':
+                linha = 0
+                coluna = 2
+            
+            #possiblidade de não ser sequencia
+            elif board[0][0] == "X" and board[1][0] == ' ':
+                linha = 1
+                coluna = 0
+            elif board[2][2] == "X" and board[2][1] == ' ':
+                linha = 2
+                coluna = 1
+            elif board[0][2] == "X" and board[1][1] == ' ':
+                linha = 1
+                coluna = 1
+            else:
+                errado_testes = True
+        
+        elif linha == 2 and coluna == 1:
+            if board[2][0] == "X" and board[2][2] == ' ':
+                linha = 2
+                coluna = 2
+            elif board[2][2] == "X" and board[2][0] == ' ':
+                linha = 2
+                coluna = 0
+            elif board[1][1] == "X" and board[0][1] == ' ':
+                linha = 0
+                coluna = 1
+
+            #possiblidade de não ser sequencia
+            elif board[0][1] == "X" and board[1][1] == ' ':
+                linha = 1
+                coluna = 1
+            else:
+                errado_testes = True
+        
+        elif linha == 2 and coluna == 2:
             if board[2][1] == "X" and board[2][0] == ' ':
                 linha = 2
-
+                coluna = 0
+            elif board[1][2] == "X" and board[0][2] == ' ':
+                linha = 0
+                coluna = 2
             elif board[1][1] == "X" and board[0][0] == ' ':
                 linha = 0
                 coluna = 0
             
-            elif board[1][2] == "X" and board[0][2] == ' ':
-                coluna = 2
-            
-            else:
-                errado = True
-
-        elif board[0][1] == "X":
-            if board[1][1] == "X" and board[2][1] == ' ':
+            #possiblidade de não ser sequencia
+            elif board[2][0] == "X" and board[2][1] == ' ':
                 linha = 2
                 coluna = 1
+            elif board[0][2] == "X" and board[1][2] == ' ':
+                linha = 1
+                coluna = 2
+            elif board[0][0] == "X" and board[1][1] == ' ':
+                linha = 1
+                coluna = 1
             else:
-                errado = True
-        else:
-            linha = randint(0,2)
-            coluna = randint(0,2)
-            while (board[linha][coluna] != ' '):
-                linha = randint(0,2)
-                coluna = randint(0,2)
-            errado = True
+                errado_testes = True
 
-    if (turno <= 2 or errado == True):
+    if turno <= 2 or errado_testes:
         linha = randint(0,2)
         coluna = randint(0,2)
         while (board[linha][coluna] != ' '):
@@ -147,7 +272,6 @@ def jogadaMaquina(board,turno):
             coluna = randint(0,2)
 
     return linha,coluna
-
 
 
 def iniciarjogodavelha2():

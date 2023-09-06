@@ -5,8 +5,6 @@ from time import sleep
 def limpar_console():
     os.system("cls" if os.name == "nt" else "clear")
 
-
-funcsVelha.iniciarjogodavelhacomputador()
 def IniciaJogoDaVelha():
     while True:
         limpar_console()
