@@ -98,10 +98,10 @@ def jogadaMaquina(board, turno, linha, coluna):
             if board[0][0] == "X" and board[0][2] == ' ':
                 linha = 0
                 coluna = 2
-            elif board[0][2] == "X" and board[0][1] == ' ':
+            elif board[0][2] == "X" and board[0][0] == ' ':
                 linha = 0
-                coluna = 1
-            elif board[1][1] == "X" and board[2][2] == ' ':
+                coluna = 0
+            elif board[1][1] == "X" and board[2][1] == ' ':
                 linha = 2
                 coluna = 1
 
